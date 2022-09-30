@@ -3,13 +3,19 @@ import 'dotenv/config';
 import UserInterface from '../interfaces/UserInterfaces';
 import HttpError from '../shared/HttpError';
 
-const SECRET = process.env.JWT_SECRET || 'tapaNoTeclado';
+const SECRET = process.env.JWT_SECRET || 'oGatoOuOKiko';
 const jwtConfig = {
   expiresIn: '1d',
 };
 
 export default {
-  create: (userData: UserInterface) => Jwt.sign(userData, SECRET, jwtConfig),
+  create: (userData: UserInterface) => {
+    const { id, username, email, role } = userData;
+
+    const user: UserInterface = { id, username, email, role };
+
+    return Jwt.sign(user, SECRET, jwtConfig);
+  },
 
   authentication: (token: string) => {
     try {

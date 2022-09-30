@@ -11,16 +11,19 @@ export default class LoginService {
     return rashGenerate(pass);
   }
 
-  public async getUser(username: string, password: string): Promise<string> {
+  public async getUser(userData: { email: string, password: string }): Promise<string> {
+    const { email, password } = userData;
     const rashPassword: string = LoginService.rashCreate(password);
+    // console.log(rashPassword, email);
 
     const user: UserInterface | null = await this.User.findOne(
-      { where: { username, password: rashPassword }, attributes: { exclude: ['password'] } },
+      { where: { email, password: rashPassword }, attributes: { exclude: ['password'] } },
     );
 
-    if (!user) throw new HttpError(400, 'Invalid data');
+    if (!user) throw new HttpError(401, 'Incorrect email or password');
 
     const token = jwtToken.create(user);
+
     return token;
   }
 }
