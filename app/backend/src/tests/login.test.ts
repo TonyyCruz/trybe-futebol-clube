@@ -32,7 +32,4 @@ describe('Testa Login', () => {
     expect(response.status).to.equal(200);
   });
 
-  it('Seu sub-teste', () => {
-    expect(false).to.be.eq(true);
-  });
 });
