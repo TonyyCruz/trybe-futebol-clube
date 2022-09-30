@@ -9,12 +9,12 @@ export default {
     const userData: LoginInterface = req.body;
     const { password, email } = userData;
 
-    if (password) throw new HttpError(400, 'Password is required');
-    if (email) throw new HttpError(400, 'email is required');
+    if (!password || !email) throw new HttpError(401, 'Incorrect email or password');
 
     if (password.length <= 6) {
       throw new HttpError(400, 'Password need to have at least 6 characters');
     }
+
     validateEmail(email);
 
     next();
