@@ -10,7 +10,7 @@ export default class LoginService {
     const user: UserInterface | null = await this.User.findOne(
       { where: { username, password }, attributes: { exclude: ['password'] } },
     );
-    console.log('login service', user);
+
     if (!user) throw new HttpError(400, 'Invalid data');
 
     const token = jwtToken.create(user);

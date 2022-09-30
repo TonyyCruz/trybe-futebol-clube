@@ -1,9 +1,9 @@
 import { Request, Response, NextFunction } from 'express';
 import UserInterface from '../interfaces/UserInterfaces';
-import User from '../database/models/User';
+import UserModel from '../database/models/User';
 import LoginService from '../services/Login.service';
 
-const Service = new LoginService(User);
+const Service = new LoginService(UserModel);
 
 export default async (req: Request, res: Response, next: NextFunction) => {
   try {
