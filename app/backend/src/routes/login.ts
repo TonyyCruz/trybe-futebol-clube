@@ -6,4 +6,6 @@ const loginRoute: Router = Router();
 
 loginRoute.post('/', validate.loginValidation, controllers.loginController);
 
+loginRoute.get('/validate', validate.tokenValidation, controllers.loginValidateController);
+
 export default loginRoute;

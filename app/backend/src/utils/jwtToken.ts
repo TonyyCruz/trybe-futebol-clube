@@ -3,7 +3,7 @@ import 'dotenv/config';
 import UserInterface from '../interfaces/UserInterfaces';
 import HttpError from '../shared/HttpError';
 
-const SECRET = process.env.JWT_SECRET || 'oGatoOuOKiko';
+const SECRET = process.env.JWT_SECRET || 'oGato || oKiko';
 const jwtConfig = {
   expiresIn: '1d',
 };

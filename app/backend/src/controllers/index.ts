@@ -1,5 +1,6 @@
-import loginController from './Login.controller';
+import controller from './Login.controller';
 
 export default {
-  loginController,
+  loginController: controller.login,
+  loginValidateController: controller.loginValidate,
 };
