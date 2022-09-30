@@ -17,7 +17,7 @@ export default class LoginService {
     console.log(rashPassword, email);
 
     const user: UserInterface | null = await this.User.findOne(
-      { where: { email }, attributes: { exclude: ['password'] } },
+      { where: { email, rashPassword }, attributes: { exclude: ['password'] } },
     );
 
     if (!user) throw new HttpError(401, 'Incorrect email or password');
