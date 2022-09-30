@@ -1,8 +1,8 @@
 import { Router } from 'express';
-import { loginController } from '../controllers';
+import controllers from '../controllers';
 
-const login = Router();
+const loginRoute: Router = Router();
 
-login.post('/', loginController);
+loginRoute.post('/', controllers.loginController);
 
-export default login;
+export default loginRoute;

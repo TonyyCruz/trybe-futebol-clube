@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import customError from '../utils/customError';
+import HttpError from '../shared/HttpError';
 
 export default function errorMiddleware(
   err: Error,
@@ -7,7 +7,7 @@ export default function errorMiddleware(
   res: Response,
   _next: NextFunction,
 ) {
-  const { status, message } = err as customError;
+  const { status, message } = err as HttpError;
 
   res.status(status || 500).json({ message });
 }
