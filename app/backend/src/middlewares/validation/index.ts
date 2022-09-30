@@ -10,7 +10,7 @@ export default {
   loginValidation: (req: Request, res: Response, next: NextFunction): void => {
     const { password, email } = req.body;
 
-    if (!password || !email) throw new HttpError(400, 'Incorrect email or password');
+    if (!password || !email) throw new HttpError(400, 'All fields must be filled');
 
     if (password.length <= 6) {
       throw new HttpError(400, 'Password need to have at least 6 characters');
