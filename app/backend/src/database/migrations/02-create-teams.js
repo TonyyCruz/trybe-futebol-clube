@@ -7,9 +7,10 @@ module.exports = {
         autoIncrement: true,
         allowNull: false,
       },
-      team_name: {
+      teamName: {
         type: Sequelize.STRING,
         allowNull: false,
+        field: 'team_name',
       },
     });
   },
