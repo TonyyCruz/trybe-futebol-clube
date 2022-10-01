@@ -4,26 +4,26 @@ import * as chai from 'chai';
 import chaiHttp = require('chai-http');
 
 import { app } from '../app';
-import User from '../database/models/User';
+import UserModel from '../database/models/User';
 
-import userMock from './mocks/user';
+import userMock from './mocks/userMock';
 
 chai.use(chaiHttp);
 
 const { expect } = chai;
 
-describe('Testa Login', () => {
+describe('Testa a rota /login', () => {
 
   const login = { email: 'test@test.com', password: 'mypassword'}
 
   before(async () => {
-    sinon.stub(User, "findOne").resolves({
+    sinon.stub(UserModel, "findOne").resolves({
         ...userMock
-      } as User);
+      } as UserModel);
   });
 
   after(()=>{
-    (User.findOne as sinon.SinonStub).restore();
+    (UserModel.findOne as sinon.SinonStub).restore();
   })
 
   it('Testa caso o email e senha estejam corretos', async () => {

@@ -10,7 +10,7 @@ export default {
     try {
       const teams: ITeam[] = await teamService.findAll();
 
-      res.status(200).json({ teams });
+      res.status(200).json(teams);
     } catch (err) {
       next(err);
     }
@@ -21,7 +21,7 @@ export default {
       const { id } = req.params;
       const team: ITeam = await teamService.findByPk(Number(id));
 
-      res.status(200).json({ team });
+      res.status(200).json(team);
     } catch (err) {
       next(err);
     }
