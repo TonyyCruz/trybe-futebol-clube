@@ -1,6 +1,6 @@
 import * as Jwt from 'jsonwebtoken';
 import 'dotenv/config';
-import UserInterface from '../interfaces/UserInterfaces';
+import IUser from '../interfaces/IUser';
 import HttpError from '../shared/HttpError';
 
 const SECRET = process.env.JWT_SECRET || 'oGato || oKiko';
@@ -9,10 +9,10 @@ const jwtConfig = {
 };
 
 export default {
-  create: (userData: UserInterface) => {
+  create: (userData: IUser) => {
     const { id, username, email, role } = userData;
 
-    const user: UserInterface = { id, username, email, role };
+    const user: IUser = { id, username, email, role };
 
     return Jwt.sign(user, SECRET, jwtConfig);
   },
