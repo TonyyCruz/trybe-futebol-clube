@@ -4,10 +4,17 @@ import jwtToken from '../../utils/jwtToken';
 import HttpError from '../../shared/HttpError';
 
 import validateEmail from './validateEmail';
+
 import IUser from '../../interfaces/IUser';
+import IMatch from '../../interfaces/IMatch';
+
+import TeamModel from '../../database/models/Team';
+import TeamService from '../../services/Team.service';
+
+const teamService = new TeamService(TeamModel);
 
 export default {
-  loginValidation: (req: Request, res: Response, next: NextFunction): void => {
+  loginValidation: (req: Request, _res: Response, next: NextFunction): void => {
     const { password, email } = req.body;
 
     if (!password || !email) throw new HttpError(400, 'All fields must be filled');
@@ -24,7 +31,7 @@ export default {
   tokenValidation: (req: Request, res: Response, next: NextFunction): void => {
     const { authorization } = req.headers;
 
-    if (!authorization) throw new HttpError(401, 'Invalid token');
+    if (!authorization) throw new HttpError(401, 'Token is required');
 
     const userData: JwtPayload | string = jwtToken.authentication(authorization);
 
@@ -32,4 +39,17 @@ export default {
 
     next();
   },
+
+  newMatchValidation: async (req: Request, _res: Response, next: NextFunction): Promise<void> => {
+    try {
+      const newMatch: IMatch = req.body;
+      await teamService.findByPk(newMatch.homeTeam);
+      await teamService.findByPk(newMatch.awayTeam);
+
+      next();
+    } catch (err) {
+      next(err);
+    }
+  },
+
 };
