@@ -43,6 +43,11 @@ export default {
   newMatchValidation: async (req: Request, _res: Response, next: NextFunction): Promise<void> => {
     try {
       const newMatch: IMatch = req.body;
+
+      if (newMatch.homeTeam === newMatch.awayTeam) {
+        throw new HttpError(401, 'It is not possible to create a match with two equal teams');
+      }
+
       await teamService.findByPk(newMatch.homeTeam);
       await teamService.findByPk(newMatch.awayTeam);
 

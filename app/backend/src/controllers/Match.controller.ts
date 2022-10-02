@@ -39,6 +39,17 @@ export default {
     }
   },
 
+  updateProgress: async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { id } = req.params;
+      const updateMessage: { message: string } = await matchService.updateProgress(Number(id));
+
+      res.status(201).json(updateMessage);
+    } catch (err) {
+      next(err);
+    }
+  },
+
   // findByPk: async (req: Request, res: Response, next: NextFunction) => {
   //   try {
   //     const { id } = req.params;
