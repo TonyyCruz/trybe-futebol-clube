@@ -9,4 +9,6 @@ matchesRoute.get('/', matchController.findAll);
 
 matchesRoute.get('/search', matchController.findByProgress);
 
+matchesRoute.post('/', matchController.create);
+
 export default matchesRoute;

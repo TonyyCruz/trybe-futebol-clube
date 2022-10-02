@@ -39,6 +39,18 @@ export default class MatchService {
     return match;
   }
 
+  public async create(newMatch: IMatch): Promise<IMatch> {
+    const match: IMatch = await this.matchModel.create({
+      homeTeam: newMatch.homeTeam,
+      homeTeamGoals: newMatch.homeTeamGoals,
+      awayTeam: newMatch.awayTeam,
+      awayTeamGoals: newMatch.awayTeamGoals,
+      inProgress: newMatch.inProgress,
+    });
+
+    return match;
+  }
+
   // public async findByPk(id: number): Promise<ITeam> {
   //   const team: ITeam | null = await this.matchModel.findByPk(id);
 
