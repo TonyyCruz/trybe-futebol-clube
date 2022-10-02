@@ -14,7 +14,6 @@ export default class LoginService {
   public async getUser(userData: { email: string, password: string }): Promise<string> {
     const { email, password } = userData;
     const rashPassword: string = LoginService.rashCreate(password);
-    console.log(rashPassword, email);
 
     const user: UserInterface | null = await this.userModel.findOne(
       { where: { email, password: rashPassword }, attributes: { exclude: ['password'] } },

@@ -1,7 +1,7 @@
 import Team from '../database/models/Team';
 import MatchModel from '../database/models/Match';
 import IMatch from '../interfaces/IMatch';
-// import HttpError from '../shared/HttpError';
+import HttpError from '../shared/HttpError';
 
 export default class MatchService {
   constructor(private matchModel: typeof MatchModel) {}
@@ -40,6 +40,9 @@ export default class MatchService {
   }
 
   public async create(newMatch: IMatch): Promise<IMatch> {
+    await this.findByPk(newMatch.homeTeam);
+    await this.findByPk(newMatch.awayTeam);
+
     const match: IMatch = await this.matchModel.create({
       homeTeam: newMatch.homeTeam,
       homeTeamGoals: newMatch.homeTeamGoals,
@@ -51,11 +54,11 @@ export default class MatchService {
     return match;
   }
 
-  // public async findByPk(id: number): Promise<ITeam> {
-  //   const team: ITeam | null = await this.matchModel.findByPk(id);
+  public async findByPk(id: number): Promise<IMatch> {
+    const team: IMatch | null = await this.matchModel.findByPk(id);
 
-  //   if (!team) throw new HttpError(400, 'team service findByPk');
+    if (!team) throw new HttpError(400, `Team ${id} don't exists`);
 
-  //   return team;
-  // }
+    return team;
+  }
 }
