@@ -14,7 +14,7 @@ export default class TeamService {
   public async findByPk(id: number): Promise<ITeam> {
     const team: ITeam | null = await this.teamModel.findByPk(id);
 
-    if (!team) throw new HttpError(400, 'team service findByPk');
+    if (!team) throw new HttpError(401, 'No team found');
 
     return team;
   }

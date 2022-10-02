@@ -16,6 +16,20 @@ export default {
     }
   },
 
+  findByProgress: async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { query } = req;
+      const inProgress: boolean = query.inProgress === 'true';
+      console.log('match controller ===----', query);
+
+      const team: IMatch[] = await matchService.findByProgress(inProgress);
+
+      res.status(200).json(team);
+    } catch (err) {
+      next(err);
+    }
+  },
+
   // findByPk: async (req: Request, res: Response, next: NextFunction) => {
   //   try {
   //     const { id } = req.params;

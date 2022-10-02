@@ -18,9 +18,25 @@ export default class MatchService {
         attributes: { exclude: ['id'] },
       }],
     });
-    console.log('match service <<>>', matches);
 
     return matches;
+  }
+
+  public async findByProgress(inProgress: boolean): Promise<IMatch[]> {
+    const match: IMatch[] | [] = await this.matchModel.findAll({
+      where: { inProgress },
+      include: [{
+        model: Team,
+        as: 'teamHome',
+        attributes: { exclude: ['id'] },
+      }, {
+        model: Team,
+        as: 'teamAway',
+        attributes: { exclude: ['id'] },
+      }],
+    });
+
+    return match;
   }
 
   // public async findByPk(id: number): Promise<ITeam> {

@@ -7,6 +7,6 @@ const matchesRoute: Router = Router();
 
 matchesRoute.get('/', matchController.findAll);
 
-// matchesRoute.get('/:id', matchController.findByPk);
+matchesRoute.get('/search', matchController.findByProgress);
 
 export default matchesRoute;
