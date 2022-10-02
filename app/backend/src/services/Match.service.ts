@@ -40,9 +40,6 @@ export default class MatchService {
   }
 
   public async create(newMatch: IMatch): Promise<IMatch> {
-    await this.findByPk(newMatch.homeTeam);
-    await this.findByPk(newMatch.awayTeam);
-
     const match: IMatch = await this.matchModel.create({
       homeTeam: newMatch.homeTeam,
       homeTeamGoals: newMatch.homeTeamGoals,
@@ -57,8 +54,21 @@ export default class MatchService {
   public async findByPk(id: number): Promise<IMatch> {
     const team: IMatch | null = await this.matchModel.findByPk(id);
 
-    if (!team) throw new HttpError(400, `Team ${id} don't exists`);
+    if (!team) throw new HttpError(400, `Match ${id} don't exists`);
 
     return team;
+  }
+
+  public async updateProgress(id: number): Promise<{ message: string }> {
+    const [affectedRows]: [number, IMatch[]] = await this.matchModel.update({
+      inProgress: false }, {
+      where: {
+        id,
+      },
+    });
+
+    if (!affectedRows) throw new HttpError(401, 'Update error');
+
+    return { message: 'Finished' };
   }
 }
