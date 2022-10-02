@@ -10,7 +10,14 @@ matchesRoute.get('/', matchController.findAll);
 
 matchesRoute.get('/search', matchController.findByProgress);
 
-matchesRoute.post('/', validate.newMatchValidation, matchController.create);
+//  ===== token validation =====  //
+matchesRoute.use(validate.tokenValidation);
+
+matchesRoute.post(
+  '/',
+  validate.newMatchValidation,
+  matchController.create,
+);
 
 matchesRoute.patch('/:id/finish', matchController.updateProgress);
 

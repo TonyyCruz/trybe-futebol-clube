@@ -31,7 +31,7 @@ export default {
   tokenValidation: (req: Request, res: Response, next: NextFunction): void => {
     const { authorization } = req.headers;
 
-    if (!authorization) throw new HttpError(401, 'Token is required');
+    if (!authorization) throw new HttpError(401, 'Token must be a valid token');
 
     const userData: JwtPayload | string = jwtToken.authentication(authorization);
 
