@@ -50,6 +50,18 @@ export default {
     }
   },
 
+  updateGoals: async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { id } = req.params;
+      const updateMessage: {
+        message: string } = await matchService.updateGoals(Number(id), req.body);
+
+      res.status(200).json(updateMessage);
+    } catch (err) {
+      next(err);
+    }
+  },
+
   // findByPk: async (req: Request, res: Response, next: NextFunction) => {
   //   try {
   //     const { id } = req.params;

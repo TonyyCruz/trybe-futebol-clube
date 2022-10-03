@@ -21,4 +21,6 @@ matchesRoute.post(
 
 matchesRoute.patch('/:id/finish', matchController.updateProgress);
 
+matchesRoute.patch('/:id', matchController.updateGoals);
+
 export default matchesRoute;

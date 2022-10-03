@@ -1,6 +1,6 @@
 import Team from '../database/models/Team';
 import MatchModel from '../database/models/Match';
-import IMatch from '../interfaces/IMatch';
+import IMatch, { ITeamGoals } from '../interfaces/IMatch';
 import HttpError from '../shared/HttpError';
 
 export default class MatchService {
@@ -61,16 +61,24 @@ export default class MatchService {
 
   public async updateProgress(id: number): Promise<{ message: string }> {
     await this.findByPk(id);
-
-    const [affectedRows]: [number, IMatch[]] = await this.matchModel.update({
+    // const [affectedRows]: [number, IMatch[]] = await this.matchModel.update({
+    await this.matchModel.update({
       inProgress: false }, {
       where: {
         id,
       },
     });
-
-    if (!affectedRows) throw new HttpError(401, 'Update error');
-
     return { message: 'Finished' };
+  }
+
+  public async updateGoals(id: number, goals: ITeamGoals): Promise<{ message: string }> {
+    const { homeTeamGoals, awayTeamGoals } = goals;
+
+    await this.matchModel.update(
+      { homeTeamGoals, awayTeamGoals },
+      { where: { id } },
+    );
+
+    return { message: 'Goals updated' };
   }
 }

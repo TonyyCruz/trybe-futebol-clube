@@ -7,7 +7,3 @@ export function hashGenerate(password: string): string { return bcrypt.hashSync(
 export function hashValidate(password: string, hash: string): boolean {
   return bcrypt.compareSync(password, hash);
 }
-
-//  ======  VALIDATE PASSWORD ======  //
-// bcrypt.compareSync("B4c0/\/", hash); // true
-// bcrypt.compareSync("not_bacon", hash); // false
