@@ -22,7 +22,7 @@ export default {
       const decode = Jwt.verify(token, SECRET);
       return decode;
     } catch (err) {
-      throw new HttpError(401, 'Invalid token');
+      throw new HttpError(401, 'Token must be a valid token');
     }
   },
 };

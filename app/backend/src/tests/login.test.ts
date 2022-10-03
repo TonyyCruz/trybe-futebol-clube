@@ -14,7 +14,7 @@ const { expect } = chai;
 
 describe('Testa a rota /login', () => {
 
-  const login = { email: 'test@test.com', password: 'mypassword'}
+  const login = { email: 'test@test.com', password: 'myPassword'}
 
   before(async () => {
     sinon.stub(UserModel, "findOne").resolves({

@@ -3,5 +3,5 @@ export default {
   username: 'MyName',
   role: 'user',
   email: 'test@test.com',
-  password: 'secretPass'
+  password: '$2a$10$oPpGD9DryFZxcM.8NZCL..Ni8rz/AYXXaSk/ZDKusQ5q0FMJ5HQba'
 }

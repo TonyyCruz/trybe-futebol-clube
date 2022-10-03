@@ -11,16 +11,17 @@ matchesRoute.get('/', matchController.findAll);
 matchesRoute.get('/search', matchController.findByProgress);
 
 //  ===== token validation =====  //
-matchesRoute.use(validate.tokenValidation);
+// matchesRoute.use(validate.tokenValidation);
 
 matchesRoute.post(
   '/',
+  validate.tokenValidation,
   validate.newMatchValidation,
   matchController.create,
 );
 
-matchesRoute.patch('/:id/finish', matchController.updateProgress);
+matchesRoute.patch('/:id/finish', validate.tokenValidation, matchController.updateProgress);
 
-matchesRoute.patch('/:id', matchController.updateGoals);
+matchesRoute.patch('/:id', validate.tokenValidation, matchController.updateGoals);
 
 export default matchesRoute;
