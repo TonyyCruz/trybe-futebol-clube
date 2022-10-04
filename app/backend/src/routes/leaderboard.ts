@@ -6,8 +6,10 @@ const { leaderboardController } = controllers;
 
 const leaderboardRoute: Router = Router();
 
+leaderboardRoute.get('/', leaderboardController.getLeaderboardGeneral);
+
 leaderboardRoute.get('/home', leaderboardController.getLeaderboardHome);
 
-// leaderboardRoute.get('/validate', leaderboardController.getLeaderboard);
+leaderboardRoute.get('/away', leaderboardController.getLeaderboardAway);
 
 export default leaderboardRoute;
