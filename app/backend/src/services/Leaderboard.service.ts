@@ -25,24 +25,26 @@ export default class Leaderboard extends MatchService {
     const isInProgress = false;
     const matches: IMatch[] = await this.findByProgress(isInProgress);
 
-    const board = this.boardCreate(teams, matches);
-    console.log(matches, board);
+    const newBoard = this.boardHomeCreate(teams, matches);
+    console.log(newBoard);
 
-    return [{
-      name: 'Santos',
-      totalPoints: 9,
-      totalGames: 3,
-      totalVictories: 3,
-      totalDraws: 0,
-      totalLosses: 0,
-      goalsFavor: 9,
-      goalsOwn: 3,
-      goalsBalance: 6,
-      efficiency: 100.00,
-    }];
+    return Leaderboard.OrdainBoard(newBoard);
   }
 
-  private boardCreate(teams: ITeam[], matches: IMatch[]): ILeaderboard[] {
+  private boardHomeCreate(teams: ITeam[], matches: IMatch[]): ILeaderboard[] {
+    const leaderboard: ILeaderboard[] = teams.map((team) => {
+      if (!team.id) throw new HttpError(500, 'Unknown error');
+
+      const teamHomeMatches = matches.filter((match) => match.homeTeam === team.id);
+      this.teamStatsCreate(team, teamHomeMatches);
+
+      return this._teamBoard;
+    });
+
+    return leaderboard;
+  }
+
+  private boardHomeAndAwayCreate(teams: ITeam[], matches: IMatch[]): ILeaderboard[] {
     const leaderboard: ILeaderboard[] = teams.map((team) => {
       if (!team.id) throw new HttpError(500, 'Unknown error');
 
@@ -70,6 +72,8 @@ export default class Leaderboard extends MatchService {
     this._teamBoard.goalsFavor += match.homeTeamGoals;
     this._teamBoard.goalsOwn += match.awayTeamGoals;
     this._teamBoard.goalsBalance = this._teamBoard.goalsFavor - this._teamBoard.goalsOwn;
+
+    this.efficiencyCalculate();
   }
 
   private awayMatchCalculate(match: IMatch): void {
@@ -78,6 +82,8 @@ export default class Leaderboard extends MatchService {
     this._teamBoard.goalsFavor += match.awayTeamGoals;
     this._teamBoard.goalsOwn += match.homeTeamGoals;
     this._teamBoard.goalsBalance = this._teamBoard.goalsFavor - this._teamBoard.goalsOwn;
+
+    this.efficiencyCalculate();
   }
 
   private pointsEarned(currentTeamGoals: number, opposingTeamGoals: number): void {
@@ -99,6 +105,38 @@ export default class Leaderboard extends MatchService {
   private static teamMatchesFilter(teamId: number, matches: IMatch[]) {
     return matches.filter((match) => match.homeTeam === teamId
       || match.awayTeam === teamId);
+  }
+
+  private efficiencyCalculate() {
+    const efficiency = (
+      (this._teamBoard.totalPoints / (this._teamBoard.totalGames * 3)) * 100)
+      .toFixed(2);
+
+    this._teamBoard.efficiency = Number(efficiency);
+  }
+
+  private static OrdainBoard(leaderboard: ILeaderboard[]): ILeaderboard[] {
+    const orderPriorityDefine = (a: ILeaderboard, b: ILeaderboard): number => {
+      const equalVictories = a.totalVictories === b.totalVictories;
+      const equalGoalsBalance = a.goalsBalance === b.goalsBalance;
+      const equalGoalsFavor = a.goalsFavor === b.goalsFavor;
+
+      if (!equalVictories) return a.totalVictories > b.totalVictories ? -1 : 1;
+      if (!equalGoalsBalance) return a.goalsBalance > b.goalsBalance ? -1 : 1;
+      if (!equalGoalsFavor) return a.goalsFavor > b.goalsFavor ? -1 : 1;
+
+      return a.goalsOwn > b.goalsOwn ? -1 : 1;
+    };
+
+    const ordainedBoard = leaderboard.sort((a, b) => {
+      const equalPoints = a.totalPoints === b.totalPoints;
+
+      if (!equalPoints) return a.totalPoints > b.totalPoints ? -1 : 1;
+
+      return orderPriorityDefine(a, b);
+    });
+
+    return ordainedBoard;
   }
 
   private resetState(name?: string): void {
