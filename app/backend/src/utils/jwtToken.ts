@@ -19,8 +19,13 @@ export default {
 
   authentication: (token: string) => {
     try {
-      const decode = Jwt.verify(token, SECRET);
-      return decode;
+      const decode: IUser = Jwt.verify(token, SECRET) as IUser;
+      return {
+        id: decode.id,
+        email: decode.email,
+        username: decode.username,
+        role: decode.role,
+      };
     } catch (err) {
       throw new HttpError(401, 'Token must be a valid token');
     }

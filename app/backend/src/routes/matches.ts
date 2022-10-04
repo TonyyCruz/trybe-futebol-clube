@@ -10,7 +10,7 @@ matchesRoute.get('/', matchController.findAll);
 
 matchesRoute.get('/search', matchController.findByProgress);
 
-//  ===== token validation =====  //
+//  ===== token validation, ESTAVA GERANDO ERRO NO PROJETO =====  //
 // matchesRoute.use(validate.tokenValidation);
 
 matchesRoute.post(
