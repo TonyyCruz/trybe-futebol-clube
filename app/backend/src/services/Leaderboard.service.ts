@@ -5,6 +5,7 @@ import IMatch from '../interfaces/IMatch';
 import ITeam from '../interfaces/ITeam';
 import HttpError from '../shared/HttpError';
 
+type gameLocation = 'home' | 'away';
 export default class Leaderboard extends MatchService {
   private _teamBoard = {
     name: '',
@@ -19,36 +20,43 @@ export default class Leaderboard extends MatchService {
     efficiency: 0,
   };
 
-  constructor(public model: typeof MatchModel) { super(model); }
+  private _location?: gameLocation;
 
-  public async getLeaderboard(teams: ITeam[]): Promise<ILeaderboard[]> {
+  constructor(public model: typeof MatchModel) {
+    super(model);
+  }
+
+  public async getLeaderboard(teams: ITeam[], location?: gameLocation)
+    : Promise<ILeaderboard[]> {
+    this._location = location;
+
     const isInProgress = false;
     const matches: IMatch[] = await this.findByProgress(isInProgress);
 
-    const newBoard = this.boardHomeCreate(teams, matches);
-    console.log(newBoard);
+    const newBoard = this.boardCreate(teams, matches);
 
     return Leaderboard.OrdainBoard(newBoard);
   }
 
-  private boardHomeCreate(teams: ITeam[], matches: IMatch[]): ILeaderboard[] {
+  // private boardHomeCreate(teams: ITeam[], matches: IMatch[]): ILeaderboard[] {
+  //   const leaderboard: ILeaderboard[] = teams.map((team) => {
+  //     if (!team.id) throw new HttpError(500, 'Unknown error');
+
+  //     const teamHomeMatches = matches.filter((match) => match.homeTeam === team.id);
+  //     this.teamStatsCreate(team, teamHomeMatches);
+
+  //     return this._teamBoard;
+  //   });
+
+  //   return leaderboard;
+  // }
+
+  private boardCreate(teams: ITeam[], matches: IMatch[])
+    : ILeaderboard[] {
     const leaderboard: ILeaderboard[] = teams.map((team) => {
       if (!team.id) throw new HttpError(500, 'Unknown error');
 
-      const teamHomeMatches = matches.filter((match) => match.homeTeam === team.id);
-      this.teamStatsCreate(team, teamHomeMatches);
-
-      return this._teamBoard;
-    });
-
-    return leaderboard;
-  }
-
-  private boardHomeAndAwayCreate(teams: ITeam[], matches: IMatch[]): ILeaderboard[] {
-    const leaderboard: ILeaderboard[] = teams.map((team) => {
-      if (!team.id) throw new HttpError(500, 'Unknown error');
-
-      const teamMatches = Leaderboard.teamMatchesFilter(team.id, matches);
+      const teamMatches = this.teamMatchesFilter(team.id, matches);
       this.teamStatsCreate(team, teamMatches);
 
       return this._teamBoard;
@@ -102,7 +110,10 @@ export default class Leaderboard extends MatchService {
     this._teamBoard.totalLosses += 1;
   }
 
-  private static teamMatchesFilter(teamId: number, matches: IMatch[]) {
+  private teamMatchesFilter(teamId: number, matches: IMatch[]) {
+    if (this._location === 'home') { return matches.filter((match) => match.homeTeam === teamId); }
+    if (this._location === 'away') { return matches.filter((match) => match.awayTeam === teamId); }
+
     return matches.filter((match) => match.homeTeam === teamId
       || match.awayTeam === teamId);
   }

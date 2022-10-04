@@ -6,7 +6,7 @@ const { leaderboardController } = controllers;
 
 const leaderboardRoute: Router = Router();
 
-leaderboardRoute.get('/home', leaderboardController.getLeaderboard);
+leaderboardRoute.get('/home', leaderboardController.getLeaderboardHome);
 
 // leaderboardRoute.get('/validate', leaderboardController.getLeaderboard);
 

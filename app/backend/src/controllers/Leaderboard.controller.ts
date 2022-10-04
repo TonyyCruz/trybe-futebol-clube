@@ -14,7 +14,29 @@ const leaderboardService = new LeaderboardService(MatchModel);
 const teamService = new TeamService(TeamModel);
 
 export default {
-  getLeaderboard: async (req: Request, res: Response, next: NextFunction) => {
+  getLeaderboardHome: async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const teams: ITeam[] = await teamService.findAll();
+      const leaderboards: ILeaderboard[] = await leaderboardService.getLeaderboard(teams, 'home');
+
+      res.status(200).json(leaderboards);
+    } catch (err) {
+      next(err);
+    }
+  },
+
+  getLeaderboardAway: async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const teams: ITeam[] = await teamService.findAll();
+      const leaderboards: ILeaderboard[] = await leaderboardService.getLeaderboard(teams, 'away');
+
+      res.status(200).json(leaderboards);
+    } catch (err) {
+      next(err);
+    }
+  },
+
+  getLeaderboardGeneral: async (req: Request, res: Response, next: NextFunction) => {
     try {
       const teams: ITeam[] = await teamService.findAll();
       const leaderboards: ILeaderboard[] = await leaderboardService.getLeaderboard(teams);
