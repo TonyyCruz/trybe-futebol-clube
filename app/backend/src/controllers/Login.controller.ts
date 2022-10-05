@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import IUser from '../interfaces/IUser';
 import UserModel from '../database/models/User';
-import LoginService from '../services/Login.service';
+import LoginService from '../services/loginService/Login.service';
 import HttpError from '../shared/HttpError';
 
 const loginService = new LoginService(UserModel);

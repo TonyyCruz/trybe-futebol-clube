@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import IMatch from '../interfaces/IMatch';
 import MatchModel from '../database/models/Match';
-import MatchService from '../services/Match.service';
+import MatchService from '../services/matchService/Match.service';
 
 const matchService = new MatchService(MatchModel);
 

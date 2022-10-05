@@ -1,8 +1,9 @@
-import TeamModel from '../database/models/Team';
-import ITeam from '../interfaces/ITeam';
-import HttpError from '../shared/HttpError';
+import TeamModel from '../../database/models/Team';
+import ITeam from '../../interfaces/ITeam';
+import HttpError from '../../shared/HttpError';
+import ITeamService from './ITeamService';
 
-export default class TeamService {
+export default class TeamService implements ITeamService {
   constructor(private teamModel: typeof TeamModel) {}
 
   public async findAll(): Promise<ITeam[] | []> {

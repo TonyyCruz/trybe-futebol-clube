@@ -1,9 +1,10 @@
-import Team from '../database/models/Team';
-import MatchModel from '../database/models/Match';
-import IMatch, { ITeamGoals } from '../interfaces/IMatch';
-import HttpError from '../shared/HttpError';
+import Team from '../../database/models/Team';
+import MatchModel from '../../database/models/Match';
+import IMatch, { ITeamGoals } from '../../interfaces/IMatch';
+import HttpError from '../../shared/HttpError';
+import IMatchService from './IMatchService';
 
-export default class MatchService {
+export default class MatchService implements IMatchService {
   constructor(private matchModel: typeof MatchModel) {}
 
   public async findAll(): Promise<IMatch[] | []> {

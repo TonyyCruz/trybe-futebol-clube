@@ -1,7 +1,7 @@
-import HttpError from '../shared/HttpError';
-import jwtToken from '../utils/jwtToken';
-import UserModel from '../database/models/User';
-import { hashValidate } from '../utils/hashGenerate';
+import HttpError from '../../shared/HttpError';
+import jwtToken from '../../utils/jwtToken';
+import UserModel from '../../database/models/User';
+import { hashValidate } from '../../utils/hashGenerate';
 
 export default class LoginService {
   constructor(private userModel: typeof UserModel) {}

@@ -3,9 +3,8 @@ import { Request, Response, NextFunction } from 'express';
 import MatchModel from '../database/models/Match';
 import TeamModel from '../database/models/Team';
 
-import LeaderboardService from '../services/Leaderboard.service';
-import TeamService from '../services/Team.service';
-// import HttpError from '../shared/HttpError';
+import LeaderboardService from '../services/leaderboardService/Leaderboard.service';
+import TeamService from '../services/teamService/Team.service';
 
 import ILeaderboard from '../interfaces/ILeaderboard';
 import ITeam from '../interfaces/ITeam';

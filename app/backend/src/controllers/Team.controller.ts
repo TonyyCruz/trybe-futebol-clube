@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import ITeam from '../interfaces/ITeam';
 import TeamModel from '../database/models/Team';
-import TeamService from '../services/Team.service';
+import TeamService from '../services/teamService/Team.service';
 
 const teamService = new TeamService(TeamModel);
 

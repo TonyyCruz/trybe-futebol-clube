@@ -8,7 +8,7 @@ import IUser from '../../interfaces/IUser';
 import IMatch from '../../interfaces/IMatch';
 
 import TeamModel from '../../database/models/Team';
-import TeamService from '../../services/Team.service';
+import TeamService from '../../services/teamService/Team.service';
 
 const teamService = new TeamService(TeamModel);
 

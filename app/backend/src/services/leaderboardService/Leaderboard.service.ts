@@ -1,13 +1,12 @@
-import ILeaderboard from '../interfaces/ILeaderboard';
-import MatchService from './Match.service';
-import MatchModel from '../database/models/Match';
-import IMatch from '../interfaces/IMatch';
-import ITeam from '../interfaces/ITeam';
-import HttpError from '../shared/HttpError';
+import ILeaderboard from '../../interfaces/ILeaderboard';
+import MatchModel from '../../database/models/Match';
+import IMatch from '../../interfaces/IMatch';
+import ITeam from '../../interfaces/ITeam';
+import HttpError from '../../shared/HttpError';
+import ILeaderboardService, { gameLocation } from './ILeaderboardService';
 
-type gameLocation = 'home' | 'away';
-export default class Leaderboard extends MatchService {
-  private _teamBoard = {
+export default class Leaderboard implements ILeaderboardService {
+  public _teamBoard = {
     name: '',
     totalPoints: 0,
     totalGames: 0,
@@ -22,34 +21,19 @@ export default class Leaderboard extends MatchService {
 
   private _location?: gameLocation;
 
-  constructor(public model: typeof MatchModel) {
-    super(model);
-  }
+  constructor(public matchModel: typeof MatchModel) {}
 
   public async getLeaderboard(teams: ITeam[], location?: gameLocation)
     : Promise<ILeaderboard[]> {
     this._location = location;
 
-    const isInProgress = false;
-    const matches: IMatch[] = await this.findByProgress(isInProgress);
+    const inProgress = false;
+    const matches: IMatch[] = await this.matchModel.findAll({ where: { inProgress } });
 
     const newBoard = this.boardCreate(teams, matches);
 
     return Leaderboard.OrdainBoard(newBoard);
   }
-
-  // private boardHomeCreate(teams: ITeam[], matches: IMatch[]): ILeaderboard[] {
-  //   const leaderboard: ILeaderboard[] = teams.map((team) => {
-  //     if (!team.id) throw new HttpError(500, 'Unknown error');
-
-  //     const teamHomeMatches = matches.filter((match) => match.homeTeam === team.id);
-  //     this.teamStatsCreate(team, teamHomeMatches);
-
-  //     return this._teamBoard;
-  //   });
-
-  //   return leaderboard;
-  // }
 
   private boardCreate(teams: ITeam[], matches: IMatch[])
     : ILeaderboard[] {
