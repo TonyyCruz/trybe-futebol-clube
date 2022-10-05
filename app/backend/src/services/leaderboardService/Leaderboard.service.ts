@@ -1,9 +1,12 @@
 import ILeaderboard from '../../interfaces/ILeaderboard';
-import MatchModel from '../../database/models/Match';
 import IMatch from '../../interfaces/IMatch';
 import ITeam from '../../interfaces/ITeam';
-import HttpError from '../../shared/HttpError';
 import ILeaderboardService, { gameLocation } from './ILeaderboardService';
+
+import MatchModel from '../../database/models/Match';
+import TeamModel from '../../database/models/Team';
+
+import HttpError from '../../shared/HttpError';
 
 export default class Leaderboard implements ILeaderboardService {
   public _teamBoard = {
@@ -20,15 +23,24 @@ export default class Leaderboard implements ILeaderboardService {
   };
 
   private _location?: gameLocation;
+  // public teams: ITeam[];
+  // public matches: IMatch[];
 
-  constructor(public matchModel: typeof MatchModel) {}
+  constructor(private matchModel: typeof MatchModel, private teamModel: typeof TeamModel) {
+    // this.preset();
+  }
 
-  public async getLeaderboard(teams: ITeam[], location?: gameLocation)
+  // private async preset(): Promise<void> {
+  //   this.teams = await this.teamModel.findAll();
+  //   this.matches = await this.matchModel.findAll({ where: { inProgress: false } });
+  // }
+
+  public async getLeaderboard(location?: gameLocation)
     : Promise<ILeaderboard[]> {
     this._location = location;
 
-    const inProgress = false;
-    const matches: IMatch[] = await this.matchModel.findAll({ where: { inProgress } });
+    const teams = await this.teamModel.findAll();
+    const matches = await this.matchModel.findAll({ where: { inProgress: false } });
 
     const newBoard = this.boardCreate(teams, matches);
 
@@ -50,7 +62,7 @@ export default class Leaderboard implements ILeaderboardService {
   }
 
   private teamStatsCreate(team: ITeam, matches: IMatch[]): void {
-    this.resetState(team.teamName);
+    this.resetStateTeamBoard(team.teamName);
 
     matches.forEach((match) => {
       if (match.homeTeam === team.id) return this.homeMatchCalculate(match);
@@ -134,7 +146,7 @@ export default class Leaderboard implements ILeaderboardService {
     return ordainedBoard;
   }
 
-  private resetState(name?: string): void {
+  private resetStateTeamBoard(name?: string): void {
     this._teamBoard = {
       name: name || '',
       totalPoints: 0,
