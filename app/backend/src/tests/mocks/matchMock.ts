@@ -1,4 +1,4 @@
-export default [
+export const matchesFinished = [
   {
 		"id": 1,
 		"homeTeam": 1,
@@ -46,5 +46,26 @@ export default [
 		"awayTeam": 1,
 		"awayTeamGoals": 1,
 		"inProgress": false,
+  },
+];
+
+export const matchesInProgress = [
+  {
+    "id": 7,
+    "homeTeam": 6,
+    "homeTeamGoals": 0,
+    "awayTeam": 5,
+    "awayTeamGoals": 0,
+    "inProgress": true,
+  },
+  {
+    "id": 8,
+    "homeTeam": 1,
+    "homeTeamGoals": 1,
+    "awayTeam": 2,
+    "awayTeamGoals": 0,
+    "inProgress": true,
   }
-]
+];
+
+export default [...matchesFinished, ...matchesInProgress];

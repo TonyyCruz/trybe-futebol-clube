@@ -62,6 +62,7 @@ export default class MatchService implements IMatchService {
 
   public async updateProgress(id: number): Promise<{ message: string }> {
     await this.findByPk(id);
+
     await this.matchModel.update({
       inProgress: false }, {
       where: {
@@ -73,6 +74,7 @@ export default class MatchService implements IMatchService {
 
   public async updateGoals(id: number, goals: ITeamGoals): Promise<{ message: string }> {
     const { homeTeamGoals, awayTeamGoals } = goals;
+    await this.findByPk(id);
 
     await this.matchModel.update(
       { homeTeamGoals, awayTeamGoals },

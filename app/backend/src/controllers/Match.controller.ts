@@ -42,6 +42,7 @@ export default {
   updateProgress: async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { id } = req.params;
+
       const updateMessage: { message: string } = await matchService.updateProgress(Number(id));
 
       res.status(200).json(updateMessage);
