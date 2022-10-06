@@ -7,7 +7,6 @@ import { app } from '../app';
 import UserModel from '../database/models/User';
 
 import userMock from './mocks/userMock';
-import { and } from 'sequelize/types';
 
 chai.use(chaiHttp);
 
@@ -30,22 +29,19 @@ describe('Testa a rota /login', () => {
 
     it('Testa se caso o email e senha estejam corretos retorna o status 200 e um objeto token', async () => {
       const result = await chai.request(app).post('/login').send(login);
-      const response = JSON.parse(result.text);
 
       expect(result.status).to.equal(200);
-      expect(response).to.have.key('token');
+      expect(result.body).to.have.key('token');
     });
 
     it('Testa se a rota /login/validate retorna a role do usuario ao passar um token valido', async () => {
       const loginResult = await chai.request(app).post('/login').send(login);
-      const authorization = await JSON.parse(loginResult.text).token;
+      const { token } = loginResult.body;
       const validateResult = await chai.request(app).get('/login/validate')
-        .set('authorization', String(authorization));
-
-      const validateResponse =  JSON.parse(validateResult.text);
+        .set('authorization', token);
 
       expect(loginResult.status).to.equal(200);
-      expect(validateResponse).to.be.deep.equal({ role:'userMock' });
+      expect(validateResult.body).to.be.deep.equal({ role:'userMock' });
 
     });
   });
@@ -69,10 +65,9 @@ describe('Testa a rota /login', () => {
       const errorMessage = { message: 'Incorrect email or password' }
 
       const result = await chai.request(app).post('/login').send(wrongEmail);
-      const response = JSON.parse(result.text);
 
       expect(result.status).to.equal(401);
-      expect(response).to.be.deep.equal(errorMessage);
+      expect(result.body).to.be.deep.equal(errorMessage);
     });
 
     it('Testa se caso o password esteja com dados invalidos', async () => {
@@ -80,10 +75,9 @@ describe('Testa a rota /login', () => {
       const errorMessage = { message: 'Password need to have at least 6 characters' }
 
       const result = await chai.request(app).post('/login').send(wrongPassword);
-      const response = JSON.parse(result.text);
 
       expect(result.status).to.equal(400);
-      expect(response).to.be.deep.equal(errorMessage);
+      expect(result.body).to.be.deep.equal(errorMessage);
     });
 
   });

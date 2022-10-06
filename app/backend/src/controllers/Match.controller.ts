@@ -62,15 +62,4 @@ export default {
     }
   },
 
-  // findByPk: async (req: Request, res: Response, next: NextFunction) => {
-  //   try {
-  //     const { id } = req.params;
-  //     const team: ITeam = await teamService.findByPk(Number(id));
-
-  //     res.status(200).json(team);
-  //   } catch (err) {
-  //     next(err);
-  //   }
-  // },
-
 };

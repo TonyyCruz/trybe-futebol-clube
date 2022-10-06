@@ -62,7 +62,6 @@ export default class MatchService implements IMatchService {
 
   public async updateProgress(id: number): Promise<{ message: string }> {
     await this.findByPk(id);
-    // const [affectedRows]: [number, IMatch[]] = await this.matchModel.update({
     await this.matchModel.update({
       inProgress: false }, {
       where: {
