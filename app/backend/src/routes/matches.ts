@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import controllers from '../controllers';
 import validate from '../middlewares/validation';
+import tokenAuthentication from '../middlewares/auth';
 
 const { matchController } = controllers;
 
@@ -15,13 +16,13 @@ matchesRoute.get('/search', matchController.findByProgress);
 
 matchesRoute.post(
   '/',
-  validate.tokenValidation,
+  tokenAuthentication,
   validate.newMatchValidation,
   matchController.create,
 );
 
-matchesRoute.patch('/:id/finish', validate.tokenValidation, matchController.updateProgress);
+matchesRoute.patch('/:id/finish', tokenAuthentication, matchController.updateProgress);
 
-matchesRoute.patch('/:id', validate.tokenValidation, matchController.updateGoals);
+matchesRoute.patch('/:id', tokenAuthentication, matchController.updateGoals);
 
 export default matchesRoute;
