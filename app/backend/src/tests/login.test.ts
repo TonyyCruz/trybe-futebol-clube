@@ -48,6 +48,43 @@ describe('Testa a rota /login', () => {
       expect(validateResponse).to.be.deep.equal({ role:'userMock' });
 
     });
+  });
+
+  //  ========================================================================= //
+
+  describe('Testa casos de falha', () => {
+
+    before(async () => {
+      sinon.stub(UserModel, "findOne").resolves({
+          ...userMock
+        } as UserModel);
+    });
+
+    after(()=>{
+      (UserModel.findOne as sinon.SinonStub).restore();
+    })
+
+    it('Testa se caso o email esteja com dados invalidos', async () => {
+      const wrongEmail = { email: 'invalidTest.com', password: 'myPassword'};
+      const errorMessage = { message: 'Incorrect email or password' }
+
+      const result = await chai.request(app).post('/login').send(wrongEmail);
+      const response = JSON.parse(result.text);
+
+      expect(result.status).to.equal(401);
+      expect(response).to.be.deep.equal(errorMessage);
+    });
+
+    it('Testa se caso o password esteja com dados invalidos', async () => {
+      const wrongPassword = { email: 'test@test.com', password: 'short'};
+      const errorMessage = { message: 'Password need to have at least 6 characters' }
+
+      const result = await chai.request(app).post('/login').send(wrongPassword);
+      const response = JSON.parse(result.text);
+
+      expect(result.status).to.equal(400);
+      expect(response).to.be.deep.equal(errorMessage);
+    });
 
   });
 });
