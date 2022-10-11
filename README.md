@@ -37,23 +37,15 @@
   
 ---
   
-- POST `/post` para criar uma nova postagem. Utilize um body nesse formato:
+- POST `/matches` para criar uma nova partida. Utilize um body nesse formato:
 
 ```jsx
 {
-  "title": "Serei o rei dos piratas",
-  "content": "Vou encontrar todos os pegaços",
-  "categoryIds": [1]
-}
-```
-
----
-  
-- POST `/categories` para adicionar uma nova categoria. Utilize um body nesse formato:
-
-```jsx
-{
-  "name": "Animation"
+  "homeTeam": 16, // O valor deve ser o id do time
+  "homeTeamGoals": 2,
+  "awayTeam": 8,  // O valor deve ser o id do time
+  "awayTeamGoals": 2,
+  "inProgress": true,
 }
 ```
 
@@ -63,20 +55,24 @@
 
 ---
 
-- GET `/user/:id` traz o usuário de acordo com o id no banco de dados se ele existir.
+- GET `/teams` retorna todos os times.
 
 ---
 
-- GET `/categories` para buscar todas as categorias.
+- GET `/teams/:id` retornar dados de um time específico.
 
 ---
   
-- GET `/post` para trazer todos os blogs post.
-  
+- GET `/matches` retorna dados de todas as partidas.
+
+---
+
+- GET `/matches/search?inProgress=true` retorna dados das partidas em andamento.
+
 ---
   
-- GET `/post/:id` para trazer o blog post baseado no id do banco de dados se ele existir.
-  
+- GET `/matches/search?inProgress=false` retorna dados das partidas finalizadas.
+
 ---
   
 - GET `/post/search?q=<conteudo da busca>` retornar um array de post que contenham em seu título ou conteúdo o termo passado na URL. Exemplo de url:
