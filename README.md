@@ -75,43 +75,30 @@
 
 ---
   
-- GET `/post/search?q=<conteudo da busca>` retornar um array de post que contenham em seu título ou conteúdo o termo passado na URL. Exemplo de url:
+- GET `/leaderboard` retorna a classificação geral dos times.
 
-```jsx
-  http://localhost:<PORT>/post/search?q=comida
-```
+---
+  
+- GET `/leaderboard/home` retorna a classificações dos times da casa.
+
+---
+  
+- GET `/leaderboard/away` retorna a classificações dos times fora de casa.
 
 ---
 
-- PUT `/post/:id` para atualizar o poste caso ele exista e pertença ao usuario logado. Utilize um body nesse formato:
+- PATCH `/matches/:id/finish` para atualizar a partida com o <b>id</b> correspondente para finalizada.
 
+---
+  
+- PATCH `/matches/:id` para atualizar o saldo de gols da partida com o <b>id</b> correspondente. Utilize um body nesse formato:
+  
 ```jsx
 {
-  "title": "Lufeeeee",
-  "content": "Cade minha comida"
+  "homeTeamGoals": 2,
+  "awayTeamGoals": 1
 }
 ```
-
----
-
-- PUT `/sales/:id` para atualizar a venda. Utilize um body nesse formato:
-
-```jsx
-  [
-    {
-      "productId": 1,
-      "quantity":2
-    },
-  ]
-```
-
----
-  
-- DELETE `/post/:id` deleta um blog post de acordo com o id caso a pessoa seja dona dele.
-  
----
-  
-- DELETE `/user/me` encontra o usuario logado travez do token de validação e o deleta.
 
 </details>
 
