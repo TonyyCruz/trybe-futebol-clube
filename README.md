@@ -15,7 +15,9 @@
   O front-end já havia sido implementado, sendo assim, tive que respeitar algumas regras de negócio para que minha API pudesse ser consumida corretamente.
   <br>
   Para fazer modificações nas tabelas é necessário fazer login, o que lhe atribuirá um token de validação.
-  As senhas são armazenadas no banco de dados de maneira criptografada através do bcrypt.js e os tokens são gerados pelo jwt (json web token).
+  As senhas são armazenadas no banco de dados de maneira criptografada através do <b>bcrypt.js</b> e os tokens são gerados pelo <b>jwt</b> (json web token).
+  <br>
+  Também foram feitos testes de integração para mais de 80% da aplicação.
 </p>
 
 <br>
@@ -124,6 +126,13 @@
   
 - **[Joi](https://www.npmjs.com/package/joi)**
 
+- **[TypeScript](https://www.typescriptlang.org/pt/)**
+
+- **[Mocha](https://mochajs.org/)**
+
+- **[Chai](https://www.chaijs.com/)**
+
+- **[bcrypt](https://www.npmjs.com/package/bcrypt)**
 
 ---
 
@@ -134,7 +143,7 @@ _Pré-requisitos_
 Antes de começar, você vai precisar ter instalado em sua máquina as seguintes ferramentas:
 - [Git](https://git-scm.com)
 - [Node.js](https://nodejs.org/en/)
-  - [Mysql](https://www.mysql.com/) para rodar local ou [Docker](https://docs.docker.com/get-docker/) para rodar em container.
+- [Docker](https://docs.docker.com/get-docker/).
 
 
 É recomendado utilizar algum cliente HTTP, como [Postman](https://www.postman.com/) ou o [Insomnia](https://insomnia.rest/download).
@@ -146,7 +155,7 @@ Também é bom ter um editor para trabalhar com o código como [VSCode](https://
 _1- Clonar o repositorio_
 
 ```jsx
-git clone git@github.com:TonyyCruz/blogs_api.git
+git clone git@github.com:TonyyCruz/trybe-futebol-clube.git
 ```
 
 ---
@@ -154,76 +163,53 @@ git clone git@github.com:TonyyCruz/blogs_api.git
 
 <details>
   <summary><strong>:whale: Rodando no Docker</strong></summary><br />
-  
-  ## Com Docker
  
- 
-_Rode o serviço `node` com o comando_
+_Rode na raiz do projeto_
 
 ```jsx
-  docker-compose up -d
+  npm run install:apps && compose:up
 ```
 
-- Esse serviço irá inicializar dois containers chamados `blogs_api` e outro chamado `blogs_api_db`.
-  - A partir daqui você pode rodar o container via CLI ou abri-lo no VS Code.
+- Esse serviço irá inicializar três containers chamados `app_frontend`, `app_backend` e outro chamado `mysql`.
 
-_Via CLI use o comando_
-```jsx
-docker exec -it blogs_api bash
-```
-- Ele te dará acesso ao terminal interativo do container blogs_api(node) criado pelo compose, que está rodando em segundo plano.
-
-_Instale as dependências `dentro do container` com_
-
-```jsx
-npm install
-```
-
-⚠️Atenção: Caso opte por utilizar o Docker, TODOS os scripts disponíveis no package.json devem ser executados DENTRO do container, ou seja, no terminal que aparece após a execução do comando docker exec.
+ ⚠️Atenção: Não esqueça de renomear o arquivo .env.example em /app/backend para `.env`
   
   </details>
   
 ---
-  
-<details>
-  <summary><strong>:computer: Rodando Localmente</strong></summary><br />
- 
- _Instale as dependências com o comando_
- 
- ```jsx
-npm install
-```
-- Para rodar o projeto desta forma, **obrigatoriamente** você deve ter o `node` instalado em seu computador.
-  - Recomenda-se a versão `^16`
-  
- ⚠️Atenção: Não esqueça de renomear/configurar o arquivo .env.example
-</details>
-
----
-
 
 ### 💡 Scripts prontos
 <details>
   <summary><strong>Scripts</strong></summary><br />
-
-  - Criar o banco de dados e gerar as tabelas:
+  
+  - Iniciar a aplicação padrão:
   ```sh
-    npm run prestart
+    npm compose:up
   ```
 
-  - Limpar e popular o banco de dados:
+  - Finalizar a aplicação padrão:
   ```sh
-    npm run seed
+    npm compose:down
   ```
-
-  - Iniciar o servidor Node:
+  
+  - Iniciar a aplicação com nodemon:
   ```sh
-    npm start
+    npm run compose:up:dev
   ```
-
-  - Iniciar o servidor Node com nodemon:
+  
+  - Finalizar a aplicação com nodemon:
   ```sh
-    npm run debug
+    npm run compose:up:dev
+  ```
+  
+  - Resetar o banco de dados, precisa estar em app/backend:
+  ```sh
+    npm run db:reset
+  ```
+  
+  - Testes de integração, precisa estar em app/backend:
+  ```sh
+    npm test
   ```
 
   <br />
