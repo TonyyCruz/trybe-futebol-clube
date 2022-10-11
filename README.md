@@ -152,7 +152,7 @@ Também é bom ter um editor para trabalhar com o código como [VSCode](https://
 
 ---
 
-_1- Clonar o repositorio_
+_Clone o repositorio_
 
 ```jsx
 git clone git@github.com:TonyyCruz/trybe-futebol-clube.git
