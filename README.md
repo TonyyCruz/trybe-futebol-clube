@@ -1,7 +1,15 @@
-<h1 align="center">Trybe Futebol Clube</h1>
+
+<p align="center"> 
+  <img height="100" src="app/frontend/src/images/positive_logo.png"/>
+  <h1 align="center">Trybe Futebol Clube</h1>
+</p>
+
 <p align="center">Neste projeto, foi desenvolvido um site informativo sobre partidas e classificações de futebol.</p>
 
 ---
+
+  <img align="center" src="app/frontend/src/images/front-example.png"/>
+
 
 <br>
 
@@ -152,7 +160,33 @@ Também é bom ter um editor para trabalhar com o código como [VSCode](https://
 
 ---
 
-_Clone o repositorio_
+<details>
+<summary><strong> ⚠️ Configurações mínimas para execução do projeto</strong></summary><br />
+
+Na sua máquina você deve ter:
+
+ - Sistema Operacional Distribuição Unix
+ - Node versão 16
+ - Docker
+ - Docker-compose versão >=1.29.2
+
+➡️ O `node` deve ter versão igual ou superior à `16.14.0 LTS`:
+  - Para instalar o nvm, [acesse esse link](https://github.com/nvm-sh/nvm#installing-and-updating);
+  - Rode os comandos abaixo para instalar a versão correta de `node` e usá-la:
+    - `nvm install 16.14 --lts`
+    - `nvm use 16.14`
+    - `nvm alias default 16.14`
+
+➡️ O`docker-compose` deve ter versão igual ou superior à`ˆ1.29.2`:
+  * Use esse [link de referência para realizar a instalação corretamente no ubuntu](https://app.betrybe.com/learn/course/5e938f69-6e32-43b3-9685-c936530fd326/module/94d0e996-1827-4fbc-bc24-c99fb592925b/section/5987fa2d-0d04-45b2-9d91-1c2ffce09862/day/2f1a5c4d-74b1-488a-8d9b-408682c93724/lesson/b883b81d-21f6-4b60-aa62-8508f6017ea0
+);
+  * Acesse o [link da documentação oficial com passos para desinstalar] (https://docs.docker.com/compose/install/#uninstallation) caso necessário.
+
+</details>
+
+---
+
+_Antes de tudo clone o repositório_
 
 ```jsx
 git clone git@github.com:TonyyCruz/trybe-futebol-clube.git
@@ -160,21 +194,18 @@ git clone git@github.com:TonyyCruz/trybe-futebol-clube.git
 
 ---
 
-
-<details>
-  <summary><strong>:whale: Rodando no Docker</strong></summary><br />
- 
-_Rode na raiz do projeto_
+_Execute na raiz do projeto_
 
 ```jsx
-  npm run install:apps && compose:up
+  npm run install:apps
 ```
 
-- Esse serviço irá inicializar três containers chamados `app_frontend`, `app_backend` e outro chamado `mysql`.
+```jsx
+  npm run compose:up:dev  // Pode demorar alguns minutos
+```
 
- ⚠️Atenção: Não esqueça de renomear o arquivo .env.example em /app/backend para `.env`
-  
-  </details>
+- Esse serviço irá inicializar três containers chamados `app_frontend_1`, `app_backend` e outro chamado `db`.
+-  ⚠️Atenção: Não esqueça de renomear o arquivo .env.example em /app/backend para `.env`
   
 ---
 
@@ -216,3 +247,8 @@ _Rode na raiz do projeto_
 </details>
 
 ---
+
+<details>
+  <summary><strong>🎲 Diagrama</strong></summary><br />
+  <img src="app/frontend/src/images/er-diagram.png"/>
+</details>
