@@ -15,17 +15,17 @@
 
 <h2 align="center">📃 Sobre o Projeto</h2>
 
-<p align="left">
-  A aplicação foi feita de forma "dockerizada", tendo um container para o front-end, um para o back-end e um para o banco de dados (MySql).
-  <br>
-  O back-end utiliza modelagem de dados através do Sequelize com typeScript e POO além de atender aos princípios do SOLID, padrões REST e arquitetura MSC.
-  <br>
-  O front-end já havia sido implementado, sendo assim, tive que respeitar algumas regras de negócio para que minha API pudesse ser consumida corretamente.
-  <br>
-  Para fazer modificações nas tabelas é necessário fazer login, o que lhe atribuirá um token de validação.
+<p>
+-  A aplicação foi feita de forma "dockerizada", tendo um container para o front-end, um para o back-end e um para o banco de dados (MySql).
+  <br><br>
+-  O back-end utiliza modelagem de dados através do Sequelize com typeScript e POO além de atender aos princípios do SOLID, padrões REST e arquitetura MSC.
+  <br><br>
+-  O front-end já havia sido implementado, sendo assim, tive que respeitar algumas regras de negócio para que minha API pudesse ser consumida corretamente.
+  <br><br>
+-  Para fazer modificações nas tabelas é necessário fazer login, o que lhe atribuirá um token de validação.
   As senhas são armazenadas no banco de dados de maneira criptografada através do <b>bcrypt.js</b> e os tokens são gerados pelo <b>jwt</b> (json web token).
-  <br>
-  Também foram feitos testes de integração para mais de 80% da aplicação.
+  <br><br>
+-  Também foram feitos testes de integração para mais de 80% da aplicação.
 </p>
 
 <br>
