@@ -204,6 +204,8 @@ _Execute na raiz do projeto_
   npm run compose:up:dev  // Pode demorar alguns minutos
 ```
 
+<br>
+
 - Esse serviço irá inicializar três containers chamados `app_frontend_1`, `app_backend` e outro chamado `db`.
 -  ⚠️Atenção: Não esqueça de renomear o arquivo .env.example em /app/backend para `.env`
   
