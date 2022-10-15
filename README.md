@@ -205,7 +205,10 @@ _Execute na raiz do projeto_
 
 - Esse serviço irá inicializar três containers chamados <strong>app_frontend_1</strong>, <strong>app_backend</strong> e outro chamado <strong>db</strong>.
 
-<br>
+
+- O back-end ficará acessível em `http://localhost:3001`
+
+- O front-end ficará acessível em `http://localhost:3000`
 
 - ⚠️Atenção: Não esqueça de renomear o arquivo `.env.example` em /app/backend para `.env`
   
