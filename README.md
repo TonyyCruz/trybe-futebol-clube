@@ -128,8 +128,6 @@
 - **[Sequelize](https://sequelize.org/)**
   
 - **[JWT](https://jwt.io/introduction)**
-  
-- **[Joi](https://www.npmjs.com/package/joi)**
 
 - **[TypeScript](https://www.typescriptlang.org/pt/)**
 
