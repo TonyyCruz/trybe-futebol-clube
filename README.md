@@ -1,3 +1,4 @@
+# 🚧 O POO DO PROJETO SERA REFATORADO EM BREVE
 
 <p align="center"> 
   <img height="100" src="app/frontend/src/images/positive_logo.png"/>
