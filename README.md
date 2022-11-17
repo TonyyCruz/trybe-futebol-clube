@@ -197,7 +197,7 @@ _Execute na raiz do projeto_
 ```
 
 ```jsx
-  npm run compose:up:dev  // Pode demorar alguns minutos
+  npm run compose:up:dev
 ```
 
 <br>
