@@ -217,16 +217,6 @@ _Execute na raiz do projeto_
 <details>
   <summary><strong>Scripts</strong></summary><br />
   
-  - Iniciar a aplicação padrão:
-  ```sh
-    npm run compose:up
-  ```
-
-  - Finalizar a aplicação padrão:
-  ```sh
-    npm run compose:down
-  ```
-  
   - Iniciar a aplicação com nodemon:
   ```sh
     npm run compose:up:dev
@@ -235,6 +225,16 @@ _Execute na raiz do projeto_
   - Finalizar a aplicação com nodemon:
   ```sh
     npm run compose:up:dev
+  ```
+  
+  - Iniciar a aplicação padrão:
+  ```sh
+    npm run compose:up
+  ```
+
+  - Finalizar a aplicação padrão:
+  ```sh
+    npm run compose:down
   ```
   
   - Resetar o banco de dados, precisa estar em app/backend:
