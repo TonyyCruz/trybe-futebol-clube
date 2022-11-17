@@ -219,12 +219,12 @@ _Execute na raiz do projeto_
   
   - Iniciar a aplicação padrão:
   ```sh
-    npm compose:up
+    npm run compose:up
   ```
 
   - Finalizar a aplicação padrão:
   ```sh
-    npm compose:down
+    npm run compose:down
   ```
   
   - Iniciar a aplicação com nodemon:
